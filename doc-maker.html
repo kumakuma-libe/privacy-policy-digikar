@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プライバシーポリシー - デジカル書類作成くん</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #333;
+      line-height: 1.8;
+    }
+    h1 { font-size: 24px; border-bottom: 2px solid #4285f4; padding-bottom: 10px; }
+    h2 { font-size: 18px; margin-top: 32px; color: #4285f4; }
+    p, li { font-size: 15px; }
+    ul { padding-left: 20px; }
+    .updated { color: #888; font-size: 13px; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+    .note { background: #fff8dc; border-left: 4px solid #f4b400; padding: 10px 14px; margin: 16px 0; }
+    .purpose { background: #eef7ee; border-left: 4px solid #34a853; padding: 12px 14px; margin: 16px 0; }
+    table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+    th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f5f9ff; }
+  </style>
+</head>
+<body>
+  <h1>プライバシーポリシー</h1>
+  <p class="updated">最終更新日: 2026年7月21日 ／ バージョン: 1.0.0</p>
+
+  <p>本プライバシーポリシーは、Chrome拡張機能「デジカル書類作成くん」（以下「本拡張機能」）における
+  ユーザーデータの取り扱いについて説明します。</p>
+
+  <div class="note">
+    本拡張機能は、医師等の医療従事者がデジカル（電子カルテ）を用いた診療業務の中で使用することを
+    想定した業務効率化ツールです。一般の患者様がご利用になることは想定していません。
+  </div>
+
+  <h2>1. 単一の目的（Single Purpose）</h2>
+  <div class="purpose">
+    <strong>本拡張機能の唯一の目的:</strong><br>
+    デジカル（<code>digikar.jp</code>）のカルテ情報をもとに、医師が患者に提出する書類
+    （病児保育医師連絡票・紹介状（診療情報提供書）・インフルエンザ証明書（大人）・
+    登園登校届など）のWordファイル（.docx）を、入力代行および自動命名によって
+    作成する作業を補助することです。<br>
+    本拡張機能は、この目的以外の機能（広告表示・ユーザー追跡・SNS連携・分析計測など）を
+    一切持ちません。
+  </div>
+
+  <h2>2. 収集する情報の種類</h2>
+  <p>本拡張機能は、ユーザー（医師）が拡張機能を操作した際に、デジカル（<code>digikar.jp</code>）の
+  カルテ画面・公開APIから以下のデータを読み取ります。</p>
+  <table>
+    <thead>
+      <tr>
+        <th>分類</th>
+        <th>具体的内容</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>個人識別情報</strong></td>
+        <td>患者氏名・カナ氏名・生年月日・性別・年齢（年齢はAPIレスポンスに含まれますが書類生成には使用しません）</td>
+      </tr>
+      <tr>
+        <td><strong>健康に関する情報</strong></td>
+        <td>病名、現病歴、所見（A/P：評価・計画）、検査結果、受診日、処方の有無（薬剤名そのものは保持せず、
+        「有／無」のみを判定に使用）、その日の担当医師名</td>
+      </tr>
+      <tr>
+        <td><strong>Webサイトのコンテンツ</strong></td>
+        <td>デジカルのカルテ画面・診療記録本文（SOAP形式）のテキスト</td>
+      </tr>
+      <tr>
+        <td><strong>認証に関する情報</strong></td>
+        <td>ユーザーが任意で設定するGoogle Gemini APIキー（ユーザー自身が取得したキーで、端末内にのみ保存）</td>
+      </tr>
+      <tr>
+        <td><strong>その他ユーザー入力</strong></td>
+        <td>院プロファイル（院名・住所・電話番号・FAX番号など、医師が書類の発行元として設定する情報）</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>本拡張機能は、以下のデータを<strong>収集しません</strong>: 位置情報、決済・財務情報、
+  デジカル以外のウェブサイトの閲覧履歴、薬剤名そのもの（処方の有無のみ判定）。</p>
+
+  <h2>3. データの使用目的</h2>
+  <p>読み取ったデータは、以下の処理にのみ使用します。</p>
+  <ul>
+    <li>選択した書類テンプレートの各項目（トークン）へ差し込み、Wordファイル（.docx）を生成すること</li>
+    <li>ダウンロードするファイル名の自動生成（カナ氏名を使用）</li>
+    <li>紹介状・病児保育連絡票の下書き文章を、Gemini APIを用いて要約すること（ユーザーが要約ボタンを
+    押した場合のみ。詳細は次項）</li>
+  </ul>
+  <p>上記以外の目的（広告・分析・ユーザープロファイリング等）には一切使用しません。</p>
+
+  <h2>4. Google Gemini APIへのデータ送信について（重要）</h2>
+  <p>本拡張機能は、紹介状・病児保育連絡票の要約下書きを作成する機能に限り、Google Gemini API
+  （<code>https://generativelanguage.googleapis.com/</code>）へデータを送信します。</p>
+  <ul>
+    <li><strong>実行タイミング</strong>: ユーザーが「AIで要約」等のボタンを押した時のみ実行されます。自動送信は行いません。</li>
+    <li><strong>使用するAPIキー</strong>: ユーザー自身が取得・設定したGemini APIキーを使用します。開発者のキーは使用しません。</li>
+    <li><strong>送信内容</strong>: 現病歴のテキスト・検査結果のテキスト・所見（A/P）のテキスト・受診日（日付のみ）。</li>
+    <li><strong>送信しない情報（最小化・多層防御設計）</strong>: 患者氏名・カナ氏名・生年月日・患者番号・
+    担当医師名などの識別情報は、Gemini API呼び出しのメッセージ構造そのものに含める項目（キー）が
+    用意されていません。仮に呼び出し元から誤って渡された場合でも、拡張機能内部（<code>background.js</code>）で
+    無視される設計（多層防御）になっており、識別情報がGemini APIへ送信されることはありません。</li>
+  </ul>
+  <p>送信されたデータの取り扱いは、Googleの
+  「<a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Gemini API追加利用規約</a>」
+  および「<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googleプライバシーポリシー</a>」
+  に従います。無料枠（Free Tier）のAPIキーで送信されたデータは、Googleのモデル学習に利用される
+  可能性がある点にご留意のうえ、有料プランのAPIキーのご利用を推奨します。</p>
+
+  <h2>5. データの保存場所と保持期間</h2>
+  <ul>
+    <li><strong>院プロファイル（院名・住所・電話・FAX）・Gemini APIキー・モデル設定・最後に選択した
+    テンプレートID・選択中の院ID</strong>: ブラウザのローカルストレージ（<code>chrome.storage.local</code>）
+    にのみ保存され、開発者や外部サーバーへ送信されることはありません（前項のGemini送信を除く）。</li>
+    <li><strong>患者情報（氏名・生年月日・病名・現病歴・検査結果など）は保存しません。</strong>
+    サイドパネルで読み取った内容は書類作成のためにその場で使用されるのみで、パネルを閉じる・
+    拡張機能を再読み込みする等で消去されます。</li>
+    <li>拡張機能をアンインストールすると、保存されているすべてのデータ（院プロファイル・APIキー等）が削除されます。</li>
+  </ul>
+
+  <h2>6. 生成したWordファイルの取り扱い</h2>
+  <p>作成された書類（.docx）は、拡張機能内でローカルに生成され、ユーザーのPCへ直接ダウンロードされます。
+  本拡張機能が生成したファイルをどこかへアップロードしたり、外部サーバーに保存したりすることは一切ありません。</p>
+
+  <h2>7. 第三者へのデータ提供</h2>
+  <p>本拡張機能は、開発者が運営する外部サーバーを持ちません。第4項に記載したGoogle Gemini APIへの
+  送信を除き、読み取ったデータを第三者へ提供・送信することは一切ありません。解析・トラッキング・
+  広告目的のデータ収集も行いません。</p>
+
+  <h2>8. データの販売・共有</h2>
+  <p>本拡張機能は、ユーザーデータを第三者へ販売・貸与・共有することは一切ありません。</p>
+
+  <h2>9. アクセス範囲・必要な権限について</h2>
+  <p>本拡張機能はデジカル（<code>https://digikar.jp/*</code>）およびGoogle Gemini API
+  （<code>https://generativelanguage.googleapis.com/*</code>）のドメインでのみ動作します。
+  その他のウェブサイトへのアクセスは行いません。</p>
+  <table>
+    <thead>
+      <tr>
+        <th>権限</th>
+        <th>用途</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>sidePanel</code></td>
+        <td>書類作成の操作画面をChromeのサイドパネルとして表示するため</td>
+      </tr>
+      <tr>
+        <td><code>storage</code></td>
+        <td>院プロファイル・Gemini APIキー・モデル設定・最後に選択したテンプレートIDをローカルに
+        保存するため（<code>chrome.storage.local</code>）</td>
+      </tr>
+      <tr>
+        <td>ホスト権限 <code>https://digikar.jp/*</code></td>
+        <td>カルテ画面から診療記録・患者基本情報を読み取るため（content script・公開APIの利用）</td>
+      </tr>
+      <tr>
+        <td>ホスト権限 <code>https://generativelanguage.googleapis.com/*</code></td>
+        <td>ユーザーが要約ボタンを押した時にGoogle Gemini APIへ通信するため</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>これらの権限は本拡張機能の単一の目的を達成するために必要最小限のものです。</p>
+
+  <h2>10. Google API ユーザーデータポリシー（Limited Use）への準拠</h2>
+  <p>本拡張機能は、Google Gemini APIを利用するにあたり、Google APIサービスのユーザーデータポリシー
+  （Limited Use要件）を遵守します。</p>
+  <ul>
+    <li>取得したデータは、本拡張機能の単一の目的（書類の下書き作成補助）のためにのみ使用します。</li>
+    <li>取得したデータを広告目的には一切使用しません。</li>
+    <li>取得したデータを、開発者を含むいかなる人間が読み取ることもありません
+    （Gemini APIへの送信時を除き、すべてユーザーの端末内で処理されます）。</li>
+    <li>取得したデータを、本拡張機能のユーザー（医師）に提供する目的以外で第三者へ転送しません。</li>
+  </ul>
+
+  <h2>11. 医療安全に関する補足</h2>
+  <p>本拡張機能は、医師の文書作成業務を補助する目的のツールであり、診断や治療方針の決定を代替する
+  ものではありません（医療機器プログラム（SaMD）には該当しません）。AIによる要約・下書き生成は
+  文章作成の補助にとどまり、医学的判断は行いません。生成された書類の内容は、必ず医師本人が確認・
+  修正したうえで発行してください。</p>
+
+  <h2>12. ユーザーの権利（削除・開示請求）</h2>
+  <p>本拡張機能は患者情報を保存しないため、患者情報について開示・削除請求の対象となるデータは
+  ありません。院プロファイル・Gemini APIキー等の設定情報は、拡張機能の設定画面からいつでも
+  変更・削除でき、アンインストールによってすべて削除されます。本ポリシーに関するご質問等は
+  次項の窓口までお問い合わせください。</p>
+
+  <h2>13. ポリシーの変更</h2>
+  <p>本プライバシーポリシーは、必要に応じて改定される場合があります。改定があった場合は、
+  本ページの最終更新日を更新します。</p>
+
+  <h2>14. お問い合わせ</h2>
+  <p>本プライバシーポリシーに関するご質問は、Chrome ウェブストアの拡張機能ページよりお問い合わせください。</p>
+</body>
+</html>
